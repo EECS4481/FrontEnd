@@ -1,13 +1,11 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-// import { useLocation } from "react-router-dom";
 
 function Chat() {
-  //   const location = useLocation();
   return (
     <Container>
       <Row className="my-5">
-        <Col md={8}>client chat</Col>
+        <Col md={8}>provider chat</Col>
       </Row>
     </Container>
   );

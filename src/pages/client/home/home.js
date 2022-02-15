@@ -8,8 +8,8 @@ function Home() {
     <Container>
       <Row className="my-5">
         <Col md={8}>
-          <h1 class="display-2">Welcome to Help Desk</h1>
-          <p class="lead">
+          <h1 className="display-2">Welcome to Help Desk</h1>
+          <p className="lead">
             Chat with Help Desk Providers for assistance on resolving issues.
           </p>
           <p>
