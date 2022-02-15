@@ -1,16 +1,16 @@
 import "./App.css";
-import SignIn from "./sign-in/sign-in.component";
-import Home from "./home/home.component";
+import SignIn from "./pages/sign-in/sign-in";
+import Home from "./pages/client/home/home";
+import Chat from "./pages/client/chat/chat";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route exact path="/" element={<SignIn />} />
-        <Route exact path="/home" element={<Home />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route exact path="/" element={<SignIn />} />
+      <Route exact path="/client/home/:userId" element={<Home />} />
+      <Route exact path="/client/chat/:chatId" element={<Chat />} />
+    </Routes>
   );
 }
 

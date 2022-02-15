@@ -12,7 +12,14 @@ function SignIn() {
             If you are a Provider, please sign in. Otherwise, please login
             anonymously as a Guest.
           </p>
-          <Button variant="primary">Guest login</Button>
+          <Button
+            as={Link}
+            variant="primary"
+            type="submit"
+            to="/client/home/123"
+          >
+            Guest login
+          </Button>
 
           <h2 className="mt-3">Provider Login</h2>
           <Form>
@@ -28,7 +35,7 @@ function SignIn() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
-            <Button as={Link} variant="primary" type="submit" to="/home">
+            <Button variant="primary" type="submit">
               Submit
             </Button>
           </Form>
