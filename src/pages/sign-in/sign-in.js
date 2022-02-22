@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { getClientId } from "../client/api";
@@ -8,16 +8,15 @@ function SignIn() {
   const [isClientLoggingIn, setIsClientLoggingIn] = useState(false);
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery("getClientId", getClientId, {
+  const { data, isSuccess } = useQuery("getClientId", getClientId, {
     enabled: isClientLoggingIn,
   });
 
-  const goToHomePage = () => {
-    setIsClientLoggingIn(true);
-    if (!isLoading) {
+  useEffect(() => {
+    if (isSuccess) {
       navigate(`/client/home/${data?.client_id}`);
     }
-  };
+  }, [isSuccess, data?.client_id]);
 
   return (
     <Container>
@@ -28,7 +27,11 @@ function SignIn() {
             If you are a Provider, please sign in. Otherwise, please login
             anonymously as a Guest.
           </p>
-          <Button variant="primary" type="submit" onClick={goToHomePage}>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={() => setIsClientLoggingIn(true)}
+          >
             Guest login
           </Button>
 
