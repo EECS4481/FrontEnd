@@ -24,6 +24,15 @@ function Home() {
           >
             Chat with a Client
           </Button>
+          <Button
+            as={Link}
+            to={`/provider/chat/123`}
+            className="mt-2"
+            variant="primary"
+            size="lg"
+          >
+            Chat with another Provider
+          </Button>
         </Col>
       </Row>
     </Container>

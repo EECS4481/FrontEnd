@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getClientId } from "../client/api";
+import { useQuery } from "react-query";
 
 function SignIn() {
+  const [isClientLoggingIn, setIsClientLoggingIn] = useState(false);
+  const navigate = useNavigate();
+
+  const { data, isLoading } = useQuery("getClientId", getClientId, {
+    enabled: isClientLoggingIn,
+  });
+
+  const goToHomePage = () => {
+    setIsClientLoggingIn(true);
+    if (!isLoading) {
+      navigate(`/client/home/${data?.client_id}`);
+    }
+  };
+
   return (
     <Container>
       <Row className="my-5">
@@ -12,12 +28,7 @@ function SignIn() {
             If you are a Provider, please sign in. Otherwise, please login
             anonymously as a Guest.
           </p>
-          <Button
-            as={Link}
-            variant="primary"
-            type="submit"
-            to="/client/home/123"
-          >
+          <Button variant="primary" type="submit" onClick={goToHomePage}>
             Guest login
           </Button>
 

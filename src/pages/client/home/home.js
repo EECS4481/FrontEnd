@@ -1,9 +1,16 @@
 import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+// import { useQuery } from "react-query";
+// import { getClientIdfunction } from "../api";
 
 function Home() {
-  const location = useLocation();
+  // const location = useLocation();
+  // const { data, error, isError, isLoading } = useQuery(
+  //   "getClientId",
+  //   getClientIdfunction
+  // );
+
   return (
     <Container>
       <Row className="my-5">
