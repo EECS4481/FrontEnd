@@ -1,8 +1,7 @@
 import React from "react";
-import { Router, Route } from "react-router";
+import { Route } from "react-router";
 import Home from "./home/home";
 import Chat from "./chat/chat";
-import SignIn from "../sign-in/sign-in";
 
 const ClientRoutes = () => (
   <>

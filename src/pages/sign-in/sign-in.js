@@ -1,22 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getClientId } from "../client/api";
+import { getProviderId } from "../provider/api";
 import { useQuery } from "react-query";
 
 function SignIn() {
-  const [isClientLoggingIn, setIsClientLoggingIn] = useState(false);
   const navigate = useNavigate();
 
-  const { data, isSuccess } = useQuery("getClientId", getClientId, {
-    enabled: isClientLoggingIn,
-  });
+  const [isClientLoggingIn, setIsClientLoggingIn] = useState(false);
+  const [isProviderLoggingIn, setIsProviderLoggingIn] = useState(false);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+
+  const { data: clientData, isSuccess: clientIsSuccess } = useQuery(
+    "getClientId",
+    getClientId,
+    {
+      enabled: isClientLoggingIn,
+    }
+  );
+
+  const { data: providerData, isSuccess: providerIsSuccess } = useQuery(
+    "getProviderId",
+    () => getProviderId(email, password),
+    {
+      enabled: isProviderLoggingIn,
+    }
+  );
 
   useEffect(() => {
-    if (isSuccess) {
-      navigate(`/client/home/${data?.client_id}`);
+    if (clientIsSuccess) {
+      navigate(`/client/home/${clientData?.client_id}`);
     }
-  }, [isSuccess, data?.client_id]);
+    if (providerIsSuccess) {
+      navigate(`/provider/home/${providerData?.provider_id}`);
+    }
+  }, [
+    clientIsSuccess,
+    providerIsSuccess,
+    clientData?.client_id,
+    providerData?.provider_id,
+  ]);
 
   return (
     <Container>
@@ -39,7 +67,12 @@ function SignIn() {
           <Form>
             <Form.Group className="mb-3" controlId="formProviderEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={handleEmailChange}
+              />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -47,13 +80,16 @@ function SignIn() {
 
             <Form.Group className="mb-3" controlId="formProviderPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
             </Form.Group>
             <Button
               variant="primary"
-              as={Link}
-              type="submit"
-              to="/provider/home/123"
+              onClick={() => setIsProviderLoggingIn(true)}
             >
               Submit
             </Button>
