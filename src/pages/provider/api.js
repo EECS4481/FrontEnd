@@ -29,3 +29,11 @@ export const setProviderReady = async (providerId) => {
   );
   return data;
 };
+
+
+export const logout= async(providerId) =>{
+  const { data } = await axios.post(
+    `http://localhost:4000/api/logout/${providerId}`
+  );
+  return data;
+};
