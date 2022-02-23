@@ -87,11 +87,6 @@ function Chat() {
               ) : (
                 "No messages to display"
               )}
-            </Card.Body>
-          </Card>
-          <Card className="mt-2">
-            <Card.Body>
-              <Card.Title>Message your Provider, provider name</Card.Title>
               <InputGroup className="mt-2">
                 <FormControl
                   placeholder="Type your question here"
