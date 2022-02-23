@@ -44,7 +44,7 @@ function Chat() {
         </Col>
       </Row>
       <Row className="mb-5">
-        <Col>
+        <Col md={8}>
           <div className="mb-4" style={{ display: "flex", gap: "10px" }}>
             <Button variant="primary">
               Transfer Client to another Provider
@@ -66,26 +66,26 @@ function Chat() {
                 here
               </Card.Subtitle>
               {chatData && chatData.length ? (
-                <Table striped hover>
-                  <thead>
-                    <tr>
-                      <th>Sender</th>
-                      <th>Receiver</th>
-                      <th>Content</th>
-                      <th>Timestamp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {chatData.map((message) => (
-                      <tr key={message.message_id}>
-                        <td>{message.sender_id}</td>
-                        <td>{message.receiver_id}</td>
-                        <td>{message.content}</td>
-                        <td>{message.TIMESTAMP}</td>
+                <div style={{ maxHeight: "500px", overflow: "scroll" }}>
+                  <Table striped hover>
+                    <thead>
+                      <tr>
+                        <th>Sender</th>
+                        <th>Content</th>
+                        <th>Timestamp</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                    </thead>
+                    <tbody>
+                      {chatData.map((message) => (
+                        <tr key={message.message_id}>
+                          <td width={"15%"}>{message.sender_id}</td>
+                          <td width={"65%"}>{message.content}</td>
+                          <td width={"20%"}>{message.TIMESTAMP}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
               ) : (
                 "No messages to display"
               )}
