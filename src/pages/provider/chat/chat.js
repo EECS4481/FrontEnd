@@ -60,7 +60,7 @@ function Chat() {
           </div>
           <Card>
             <Card.Body>
-              <Card.Title>Your chat with anonymous client</Card.Title>
+              <Card.Title>Your chat with {clientId}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 Each time you send a message, the message content will update
                 here
@@ -93,7 +93,7 @@ function Chat() {
           </Card>
           <Card className="mt-2">
             <Card.Body>
-              <Card.Title>Message the client, client_id</Card.Title>
+              <Card.Title>Message the client {clientId}</Card.Title>
               <InputGroup className="mt-2">
                 <FormControl
                   placeholder="Type your message here"
