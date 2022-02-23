@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const getClientId = async () => {
+  console.log("here");
   const { data } = await axios.get(`http://localhost:4000/api/getClientId`);
   return data;
 };
