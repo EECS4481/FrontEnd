@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Alert, Button } from "react-bootstrap";
 import { getProviderIdStartChat } from "../api";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
@@ -49,6 +49,12 @@ function Home() {
           >
             Chat with a Provider
           </Button>
+
+          <Button as={Link} to={`/`} className="mt-2" variant="primary" size="lg">
+            Logout
+          </Button>
+
+
           {!isProviderAvailable && (
             <Alert className="mt-3" variant="danger">
               No Provider available. Please try again later.

@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
+import { logout } from "../api";
 // import { setProviderReady, getProviderId } from "../api";
 // import { useMutation, useQuery, useQueryClient } from "react-query";
 
 function Home() {
+
+    const { data: providerData } = useQuery(
+    "getProviderId",
+    () => console.log('hi'),{ enabled:false }
+  );
+
   return (
     <Container>
       <Row className="my-5">
@@ -34,6 +42,11 @@ function Home() {
             >
               Chat with a Provider
             </Button>
+
+            <Button as={Link} to={`/`} className="mt-2" variant="primary" size="lg" onClick={ logout(providerData?.provider_id) }>
+              Logout
+            </Button>
+
           </div>
         </Col>
       </Row>
