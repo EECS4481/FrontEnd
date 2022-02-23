@@ -18,7 +18,7 @@ function Chat() {
     enabled: false,
   });
 
-  const sampleChatDataMutation = useMutation((messageData) => {
+  const chatDataMutation = useMutation((messageData) => {
     return addConversation(messageData);
   });
 
@@ -38,7 +38,7 @@ function Chat() {
                 Each time you send a message, the message content will update
                 here
               </Card.Subtitle>
-              {sampleChatDataMutation.data ? (
+              {chatDataMutation.data ? (
                 <Table striped hover>
                   <thead>
                     <tr>
@@ -49,7 +49,7 @@ function Chat() {
                     </tr>
                   </thead>
                   <tbody>
-                    {sampleChatDataMutation.data.map((message, index) => (
+                    {chatDataMutation.data.map((message, index) => (
                       <tr key={message.message_id}>
                         <td>{message.sender_id}</td>
                         <td>{message.receiver_id}</td>
@@ -80,7 +80,7 @@ function Chat() {
                   variant="primary"
                   id="submit-button"
                   onClick={() => {
-                    sampleChatDataMutation.mutate({
+                    chatDataMutation.mutate({
                       sender: clientId.client_id,
                       receiver: "provider",
                       content: messageContent,

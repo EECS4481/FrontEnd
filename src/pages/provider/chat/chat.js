@@ -9,19 +9,32 @@ import {
   Button,
   Table,
 } from "react-bootstrap";
-import { useMutation, useQuery } from "react-query";
-import { addConversation, getProviderId } from "../api";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { addConversation, getProviderId, getConversationHistory } from "../api";
 import { Link } from "react-router-dom";
 
 function Chat() {
+  const queryClient = useQueryClient();
   const [messageContent, setMessageContent] = useState("");
   const { data: providerId } = useQuery("getProviderId", getProviderId, {
     enabled: false,
   });
 
-  const sampleChatDataMutation = useMutation((messageData) => {
-    return addConversation(messageData);
-  });
+  // this needs to be dynamic once api call in place that automatically pairs a provider with a client
+  const clientId = "C400";
+
+  const { data: chatData } = useQuery("getConversationHistory", () =>
+    getConversationHistory(clientId, providerId.provider_id)
+  );
+
+  const chatDataMutation = useMutation(
+    (messageData) => addConversation(messageData),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("getConversationHistory");
+      },
+    }
+  );
 
   return (
     <Container>
@@ -30,7 +43,7 @@ function Chat() {
           <h1 className="display-2">Help Desk Chat</h1>
         </Col>
       </Row>
-      <Row className=" mb-5">
+      <Row className="mb-5">
         <Col>
           <div className="mb-4" style={{ display: "flex", gap: "10px" }}>
             <Button variant="primary">
@@ -52,7 +65,7 @@ function Chat() {
                 Each time you send a message, the message content will update
                 here
               </Card.Subtitle>
-              {sampleChatDataMutation.data ? (
+              {chatData ? (
                 <Table striped hover>
                   <thead>
                     <tr>
@@ -63,7 +76,7 @@ function Chat() {
                     </tr>
                   </thead>
                   <tbody>
-                    {sampleChatDataMutation.data.map((message, index) => (
+                    {chatData.map((message) => (
                       <tr key={message.message_id}>
                         <td>{message.sender_id}</td>
                         <td>{message.receiver_id}</td>
@@ -94,9 +107,9 @@ function Chat() {
                   variant="primary"
                   id="submit-button"
                   onClick={() => {
-                    sampleChatDataMutation.mutate({
+                    chatDataMutation.mutate({
                       sender: providerId.provider_id,
-                      receiver: "client",
+                      receiver: clientId,
                       content: messageContent,
                     });
                   }}
