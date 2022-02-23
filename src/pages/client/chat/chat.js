@@ -10,7 +10,12 @@ import {
   Table,
 } from "react-bootstrap";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { addConversation, getClientId, getConversationHistory } from "../api";
+import {
+  addConversation,
+  getClientId,
+  getConversationHistory,
+  getProviderIdStartChat,
+} from "../api";
 import { Link } from "react-router-dom";
 
 function Chat() {
@@ -20,12 +25,16 @@ function Chat() {
     enabled: false,
   });
 
-  // this needs to be dynamic once api call in place that automatically pairs a provider with a client
-  const providerId = "P1";
-
+  const { data: providerIdChatData } = useQuery(
+    "getProviderIdStartChat",
+    getProviderIdStartChat,
+    {
+      enabled: false,
+    }
+  );
   // updates every minute
   const { data: chatData } = useQuery("getConversationHistory", () =>
-    getConversationHistory(clientId.client_id, providerId)
+    getConversationHistory(clientId.client_id, providerIdChatData)
   );
 
   // each time a user sends a message, the conversation history updates
@@ -48,23 +57,23 @@ function Chat() {
       <Row className="mb-5">
         <Col md={8}>
           {/* if a client leaves the chat, then they must be disconnected from the provider in the backend */}
-          <Button
+          {/* <Button
             as={Link}
             to={`/client/home/${clientId.client_id}`}
             variant="primary"
             className="mb-4"
           >
             Leave chat
-          </Button>
+          </Button> */}
           <Card>
             <Card.Body>
-              <Card.Title>Your chat with {providerId}</Card.Title>
+              <Card.Title>Your chat with {providerIdChatData}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 Each time you send a message, the message content will update
                 here
               </Card.Subtitle>
               {chatData && chatData.length ? (
-                <div style={{ maxHeight: "500px", overflow: "scroll" }}>
+                <div style={{ height: "500px", overflow: "scroll" }}>
                   <Table striped hover>
                     <thead>
                       <tr>
@@ -102,7 +111,7 @@ function Chat() {
                   onClick={() => {
                     chatDataMutation.mutate({
                       sender: clientId.client_id,
-                      receiver: providerId,
+                      receiver: providerIdChatData,
                       content: messageContent,
                     });
                   }}

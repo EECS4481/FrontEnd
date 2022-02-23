@@ -66,7 +66,7 @@ function Chat() {
                 here
               </Card.Subtitle>
               {chatData && chatData.length ? (
-                <div style={{ maxHeight: "500px", overflow: "scroll" }}>
+                <div style={{ height: "500px", overflow: "scroll" }}>
                   <Table striped hover>
                     <thead>
                       <tr>

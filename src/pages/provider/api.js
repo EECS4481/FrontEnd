@@ -22,3 +22,10 @@ export const getConversationHistory = async (user1Id, user2Id) => {
   );
   return data;
 };
+
+export const setProviderReady = async (providerId) => {
+  const { data } = await axios.get(
+    `http://localhost:4000/api/providerReady/${providerId}`
+  );
+  return data;
+};

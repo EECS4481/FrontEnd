@@ -7,7 +7,7 @@ const ClientRoutes = () => (
   <>
     <Route exact path="/client/home/" element={<Home />} />
     <Route exact path="/client/home/:userId" element={<Home />} />
-    <Route exact path="/client/chat/:chatId" element={<Chat />} />
+    <Route exact path="/client/chat" element={<Chat />} />
   </>
 );
 

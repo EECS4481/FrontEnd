@@ -21,3 +21,8 @@ export const getConversationHistory = async (user1Id, user2Id) => {
   );
   return data;
 };
+
+export const getProviderIdStartChat = async () => {
+  const { data } = await axios.get(`http://localhost:4000/api/startChat`);
+  return data;
+};

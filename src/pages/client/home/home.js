@@ -1,8 +1,31 @@
-import React from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Alert, Button } from "react-bootstrap";
+import { getProviderIdStartChat } from "../api";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+  const [isStartingChat, setIsStartingChat] = useState(false);
+  const [isProviderAvailable, setIsProviderAvailable] = useState(true);
+
+  const { data: providerIdData, isSuccess: isSuccessProviderIdData } = useQuery(
+    "getProviderIdStartChat",
+    getProviderIdStartChat,
+    {
+      enabled: isStartingChat,
+    }
+  );
+
+  useEffect(() => {
+    if (isSuccessProviderIdData && providerIdData) {
+      console.log("here");
+      navigate(`/client/chat`);
+    } else if (isSuccessProviderIdData && !providerIdData) {
+      setIsProviderAvailable(false);
+    }
+  }, [isSuccessProviderIdData]);
+
   return (
     <Container>
       <Row className="my-5">
@@ -19,14 +42,18 @@ function Home() {
             with a Provider.
           </p>
           <Button
-            as={Link}
-            to={`/client/chat/123`}
             className="mt-2"
             variant="primary"
             size="lg"
+            onClick={() => setIsStartingChat(true)}
           >
             Chat with a Provider
           </Button>
+          {!isProviderAvailable && (
+            <Alert className="mt-3" variant="danger">
+              No Provider available. Please try again later.
+            </Alert>
+          )}
         </Col>
       </Row>
     </Container>
