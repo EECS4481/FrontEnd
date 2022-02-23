@@ -17,11 +17,12 @@ function Home() {
     }
   );
 
+  // console.log("provideriddata", providerIdData);
+
   useEffect(() => {
-    if (isSuccessProviderIdData && providerIdData) {
-      console.log("here");
+    if (isStartingChat && providerIdData) {
       navigate(`/client/chat`);
-    } else if (isSuccessProviderIdData && !providerIdData) {
+    } else if (isStartingChat && !providerIdData) {
       setIsProviderAvailable(false);
     }
   }, [isSuccessProviderIdData]);
