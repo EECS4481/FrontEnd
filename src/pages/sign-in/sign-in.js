@@ -35,10 +35,10 @@ function SignIn() {
   );
 
   useEffect(() => {
-    if (clientIsSuccess) {
+    if (isClientLoggingIn) {
       navigate(`/client/home/${clientData?.client_id}`);
     }
-    if (providerIsSuccess) {
+    if (isProviderLoggingIn) {
       navigate(`/provider/home/${providerData?.provider_id}`);
     }
   }, [
