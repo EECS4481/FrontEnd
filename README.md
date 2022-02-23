@@ -4,8 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Progress so far
 
-https://user-images.githubusercontent.com/26203082/155259608-4cd5baae-8521-4a38-a069-4a4aca4886f2.mov
-
+https://user-images.githubusercontent.com/26203082/155265576-88d6bdf4-27bb-4622-b3da-4c4b37f47cee.mov
 
 
 ## Available Scripts
