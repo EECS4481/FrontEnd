@@ -49,7 +49,7 @@ function Chat() {
             <Button variant="primary">
               Transfer Client to another Provider
             </Button>
-            {/* if a provider leaves the chat, then they must be disconnected from the client in the backend */}
+            {/* if a provider leaves the chat, then they must be disconnected from the other user in the backend */}
             <Button
               as={Link}
               to={`/provider/home/${providerId.provider_id}`}
@@ -65,7 +65,7 @@ function Chat() {
                 Each time you send a message, the message content will update
                 here
               </Card.Subtitle>
-              {chatData ? (
+              {chatData && chatData.length ? (
                 <Table striped hover>
                   <thead>
                     <tr>

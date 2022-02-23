@@ -14,3 +14,10 @@ export const addConversation = async (sampleData) => {
   console.log("data", data);
   return data;
 };
+
+export const getConversationHistory = async (user1Id, user2Id) => {
+  const { data } = await axios.get(
+    `http://localhost:4000/api/getConversationHistory/${user1Id}/${user2Id}`
+  );
+  return data;
+};
