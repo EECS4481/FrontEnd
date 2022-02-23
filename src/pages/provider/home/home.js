@@ -15,24 +15,24 @@ function Home() {
             may transfer this Client to another Provider if desired.
             Additionally, you may send messages to other Providers at any time.
           </p>
-          <Button
-            as={Link}
-            to={`/provider/chat/123`}
-            className="mt-2"
-            variant="primary"
-            size="lg"
-          >
-            Chat with a Client
-          </Button>
-          <Button
-            as={Link}
-            to={`/provider/chat/123`}
-            className="mt-2"
-            variant="primary"
-            size="lg"
-          >
-            Chat with another Provider
-          </Button>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Button
+              as={Link}
+              to={`/provider/chat/123`}
+              variant="primary"
+              size="lg"
+            >
+              Chat with a Client
+            </Button>
+            <Button
+              as={Link}
+              to={`/provider/chat/123`}
+              variant="primary"
+              size="lg"
+            >
+              Chat with a Provider
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>

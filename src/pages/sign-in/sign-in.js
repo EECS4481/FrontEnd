@@ -16,6 +16,8 @@ function SignIn() {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
 
+  const isInputInvalid = !email || !password;
+
   const { data: clientData, isSuccess: clientIsSuccess } = useQuery(
     "getClientId",
     getClientId,
@@ -90,6 +92,7 @@ function SignIn() {
             <Button
               variant="primary"
               onClick={() => setIsProviderLoggingIn(true)}
+              disabled={isInputInvalid}
             >
               Submit
             </Button>
