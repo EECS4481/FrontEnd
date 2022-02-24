@@ -30,10 +30,16 @@ export const setProviderReady = async (providerId) => {
   return data;
 };
 
-
-export const logout= async(providerId) =>{
-  const { data } = await axios.post(
+export const logout = async (providerId) => {
+  const { data } = await axios.get(
     `http://localhost:4000/api/logout/${providerId}`
+  );
+  return data;
+};
+
+export const provideChatCheck = async (providerId) => {
+  const { data } = await axios.get(
+    `http://localhost:4000/api/provideChatCheck/${providerId}/client`
   );
   return data;
 };

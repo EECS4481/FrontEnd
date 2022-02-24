@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addConversation, getProviderId, getConversationHistory } from "../api";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function Chat() {
   const queryClient = useQueryClient();
@@ -20,8 +20,7 @@ function Chat() {
     enabled: false,
   });
 
-  // this needs to be dynamic once api call in place that automatically pairs a provider with a client
-  const clientId = "C400";
+  const { clientId } = useParams();
 
   const { data: chatData } = useQuery("getConversationHistory", () =>
     getConversationHistory(clientId, providerId.provider_id)
