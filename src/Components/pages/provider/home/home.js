@@ -53,26 +53,15 @@ function Home() {
             messages to other Providers at any time.
           </p>
 
-          <div style={{ display: "flex", gap: "10px" }}>
-            {/* <Button
-              as={Link}
-              to={`/provider/chat/`}
-              variant="primary"
-              size="lg"
-            >
-              Chat with a Provider
-            </Button> */}
-
-            <Button
-              as={Link}
-              to={`/`}
-              variant="primary"
-              size="lg"
-              onClick={() => logout(userId)}
-            >
-              Logout
-            </Button>
-          </div>
+          <Button
+            as={Link}
+            to={`/`}
+            variant="primary"
+            size="lg"
+            onClick={() => logout(userId)}
+          >
+            Logout
+          </Button>
 
           <div className="my-3">
             <h2>Client chats</h2>
