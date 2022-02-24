@@ -7,7 +7,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 
+// query client
 const queryClient = new QueryClient();
+
 
 ReactDOM.render(
   <Router>
