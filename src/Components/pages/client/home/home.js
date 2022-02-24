@@ -28,7 +28,10 @@ function Home() {
   useEffect(() => {
     if (isStartingChat) {
       setIsStartingChat(false);
-      if (providerIdClientIdData?.provider_id) {
+      if (
+        providerIdClientIdData?.provider_id &&
+        providerIdClientIdData?.provider_id !== "undefined"
+      ) {
         navigate(`/client/chat`);
       } else {
         setIsProviderAvailable(false);
