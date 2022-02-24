@@ -11,7 +11,6 @@ export const addConversation = async (sampleData) => {
     `http://localhost:4000/api/addConversation`,
     sampleData
   );
-  console.log("data", data);
   return data;
 };
 

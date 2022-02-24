@@ -25,17 +25,16 @@ function Home() {
     }
   );
 
-  console.log("providerIdClientIdData", providerIdClientIdData?.provider_id);
-
   useEffect(() => {
-    if (isStartingChat && providerIdClientIdData?.provider_id) {
-      console.log("here");
-      navigate(`/client/chat`);
-    } else if (isStartingChat && !providerIdClientIdData?.provider_id) {
-      setIsProviderAvailable(false);
+    if (isStartingChat) {
       setIsStartingChat(false);
+      if (providerIdClientIdData?.provider_id) {
+        navigate(`/client/chat`);
+      } else {
+        setIsProviderAvailable(false);
+      }
     }
-  }, [isSuccessProviderIdClientIdData]);
+  }, [providerIdClientIdData]);
 
   return (
     <Container>

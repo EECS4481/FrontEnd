@@ -33,11 +33,12 @@ function Chat() {
     }
   );
 
-  console.log("provideridchatid", providerIdClientIdData);
-
   // updates every minute
   const { data: chatData } = useQuery("getConversationHistory", () =>
-    getConversationHistory(clientId.client_id, getProviderIdClientIdData)
+    getConversationHistory(
+      clientId.client_id,
+      providerIdClientIdData.provider_id
+    )
   );
 
   // each time a user sends a message, the conversation history updates
