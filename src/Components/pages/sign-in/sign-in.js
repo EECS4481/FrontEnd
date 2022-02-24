@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getClientId } from "../client/api";
 import { getProviderId } from "../provider/api";
@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 function SignIn() {
   const navigate = useNavigate();
 
+  const [isFailedLogin, setIsFailedLogin] = useState(false);
   const [isClientLoggingIn, setIsClientLoggingIn] = useState(false);
   const [isProviderLoggingIn, setIsProviderLoggingIn] = useState(false);
   const [password, setPassword] = useState("");
@@ -39,14 +40,14 @@ function SignIn() {
       navigate(`/client/home/${clientData?.client_id}`);
     }
     if (isProviderLoggingIn) {
-      navigate(`/provider/home/${providerData?.provider_id}`);
+      if (providerData.provider_id) {
+        navigate(`/provider/home/${providerData?.provider_id}`);
+      } else {
+        setIsFailedLogin(true);
+        setIsProviderLoggingIn(false);
+      }
     }
-  }, [
-    clientIsSuccess,
-    providerIsSuccess,
-    clientData?.client_id,
-    providerData?.provider_id,
-  ]);
+  }, [clientData?.client_id, providerData, providerData?.provider_id]);
 
   return (
     <Container>
@@ -96,6 +97,11 @@ function SignIn() {
             >
               Submit
             </Button>
+            {isFailedLogin && (
+              <Alert className="mt-3" variant="danger">
+                Incorrect credentials
+              </Alert>
+            )}
           </Form>
         </Col>
       </Row>
