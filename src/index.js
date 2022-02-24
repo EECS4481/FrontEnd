@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./Components/App";
+import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -8,7 +8,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 // query client
 const queryClient = new QueryClient();
-
 
 ReactDOM.render(
   <Router>
@@ -19,4 +18,3 @@ ReactDOM.render(
   </Router>,
   document.getElementById("root")
 );
-
