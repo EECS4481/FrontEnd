@@ -7,10 +7,10 @@ import { logout } from "../api";
 // import { useMutation, useQuery, useQueryClient } from "react-query";
 
 function Home() {
-
-    const { data: providerData } = useQuery(
+  const { data: providerData } = useQuery(
     "getProviderId",
-    () => console.log('hi'),{ enabled:false }
+    () => console.log("hi"),
+    { enabled: false }
   );
 
   return (
@@ -43,10 +43,16 @@ function Home() {
               Chat with a Provider
             </Button>
 
-            <Button as={Link} to={`/`} className="mt-2" variant="primary" size="lg" onClick={ logout(providerData?.provider_id) }>
+            <Button
+              as={Link}
+              to={`/`}
+              className="mt-2"
+              variant="primary"
+              size="lg"
+              onClick={logout(providerData?.provider_id)}
+            >
               Logout
             </Button>
-
           </div>
         </Col>
       </Row>

@@ -1,31 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Alert, Button } from "react-bootstrap";
-import { getProviderIdStartChat } from "../api";
+import { getProviderIdClientIdData } from "../api";
 import { useQuery } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
+import { getClientId } from "../api";
 
 function Home() {
   const navigate = useNavigate();
   const [isStartingChat, setIsStartingChat] = useState(false);
   const [isProviderAvailable, setIsProviderAvailable] = useState(true);
 
-  const { data: providerIdData, isSuccess: isSuccessProviderIdData } = useQuery(
-    "getProviderIdStartChat",
-    getProviderIdStartChat,
+  const { data: clientData } = useQuery("getClientId", getClientId, {
+    enabled: false,
+  });
+
+  const {
+    data: providerIdClientIdData,
+    isSuccess: isSuccessProviderIdClientIdData,
+  } = useQuery(
+    "getProviderIdClientIdData",
+    () => getProviderIdClientIdData(clientData.client_id),
     {
       enabled: isStartingChat,
     }
   );
 
-  // console.log("provideriddata", providerIdData);
+  console.log("providerIdClientIdData", providerIdClientIdData?.provider_id);
 
   useEffect(() => {
-    if (isStartingChat && providerIdData) {
+    if (isStartingChat && providerIdClientIdData?.provider_id) {
+      console.log("here");
       navigate(`/client/chat`);
-    } else if (isStartingChat && !providerIdData) {
+    } else if (isStartingChat && !providerIdClientIdData?.provider_id) {
       setIsProviderAvailable(false);
+      setIsStartingChat(false);
     }
-  }, [isSuccessProviderIdData]);
+  }, [isSuccessProviderIdClientIdData]);
 
   return (
     <Container>
@@ -42,19 +52,26 @@ function Home() {
             displayed on your browser. Click the button below to be connected
             with a Provider.
           </p>
-          <Button
-            className="mt-2"
-            variant="primary"
-            size="lg"
-            onClick={() => setIsStartingChat(true)}
-          >
-            Chat with a Provider
-          </Button>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Button
+              className="mt-2"
+              variant="primary"
+              size="lg"
+              onClick={() => setIsStartingChat(true)}
+            >
+              Chat with a Provider
+            </Button>
 
-          <Button as={Link} to={`/`} className="mt-2" variant="primary" size="lg">
-            Logout
-          </Button>
-
+            <Button
+              as={Link}
+              to={`/`}
+              className="mt-2"
+              variant="primary"
+              size="lg"
+            >
+              Logout
+            </Button>
+          </div>
 
           {!isProviderAvailable && (
             <Alert className="mt-3" variant="danger">

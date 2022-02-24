@@ -14,7 +14,7 @@ import {
   addConversation,
   getClientId,
   getConversationHistory,
-  getProviderIdStartChat,
+  getProviderIdClientIdData,
 } from "../api";
 import { Link } from "react-router-dom";
 
@@ -25,16 +25,19 @@ function Chat() {
     enabled: false,
   });
 
-  const { data: providerIdChatData } = useQuery(
-    "getProviderIdStartChat",
-    getProviderIdStartChat,
+  const { data: providerIdClientIdData } = useQuery(
+    "getProviderIdClientIdData",
+    () => getProviderIdClientIdData(clientId.client_id),
     {
       enabled: false,
     }
   );
+
+  console.log("provideridchatid", providerIdClientIdData);
+
   // updates every minute
   const { data: chatData } = useQuery("getConversationHistory", () =>
-    getConversationHistory(clientId.client_id, providerIdChatData)
+    getConversationHistory(clientId.client_id, getProviderIdClientIdData)
   );
 
   // each time a user sends a message, the conversation history updates
@@ -67,7 +70,9 @@ function Chat() {
           </Button> */}
           <Card>
             <Card.Body>
-              <Card.Title>Your chat with {providerIdChatData}</Card.Title>
+              <Card.Title>
+                Your chat with {providerIdClientIdData?.provider_id}
+              </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 Each time you send a message, the message content will update
                 here
@@ -110,8 +115,8 @@ function Chat() {
                   id="submit-button"
                   onClick={() => {
                     chatDataMutation.mutate({
-                      sender: clientId.client_id,
-                      receiver: providerIdChatData,
+                      sender: clientId?.client_id,
+                      receiver: providerIdClientIdData?.provider_id,
                       content: messageContent,
                     });
                   }}
