@@ -67,7 +67,12 @@ function SignIn() {
           </Button>
 
           <h2 className="mt-3">Provider Login</h2>
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setIsProviderLoggingIn(true);
+            }}
+          >
             <Form.Group className="mb-3" controlId="formProviderEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -90,11 +95,7 @@ function SignIn() {
                 onChange={handlePasswordChange}
               />
             </Form.Group>
-            <Button
-              variant="primary"
-              onClick={() => setIsProviderLoggingIn(true)}
-              disabled={isInputInvalid}
-            >
+            <Button variant="primary" disabled={isInputInvalid} type="submit">
               Submit
             </Button>
             {isFailedLogin && (

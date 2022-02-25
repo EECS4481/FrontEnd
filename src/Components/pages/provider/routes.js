@@ -7,7 +7,7 @@ const ProviderRoutes = () => (
   <>
     <Route exact path="/provider/home/" element={<Home />} />
     <Route exact path="/provider/home/:userId" element={<Home />} />
-    <Route exact path="/provider/chat/:clientId" element={<Chat />} />
+    <Route exact path="/provider/chat/:receiverId" element={<Chat />} />
   </>
 );
 

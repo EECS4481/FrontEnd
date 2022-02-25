@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { logout, setProviderReady, provideChatCheck } from "../api";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 function Home() {
+  const queryClient = useQueryClient();
   const { userId } = useParams();
 
   const providerListData = [
@@ -58,7 +59,10 @@ function Home() {
             to={`/`}
             variant="primary"
             size="lg"
-            onClick={() => logout(userId)}
+            onClick={() => {
+              queryClient.removeQueries("getProviderId", { exact: true });
+              logout(userId);
+            }}
           >
             Logout
           </Button>

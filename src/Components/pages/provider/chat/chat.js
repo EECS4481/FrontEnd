@@ -20,10 +20,10 @@ function Chat() {
     enabled: false,
   });
 
-  const { clientId } = useParams();
+  const { receiverId } = useParams();
 
   const { data: chatData } = useQuery("getConversationHistory", () =>
-    getConversationHistory(clientId, providerId.provider_id)
+    getConversationHistory(receiverId, providerId.provider_id)
   );
 
   const chatDataMutation = useMutation(
@@ -59,7 +59,7 @@ function Chat() {
           </div>
           <Card>
             <Card.Body>
-              <Card.Title>Your chat with {clientId}</Card.Title>
+              <Card.Title>Your chat with {receiverId}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 Each time you send a message, the message content will update
                 here
@@ -103,7 +103,7 @@ function Chat() {
                   onClick={() => {
                     chatDataMutation.mutate({
                       sender: providerId.provider_id,
-                      receiver: clientId,
+                      receiver: receiverId,
                       content: messageContent,
                     });
                   }}
