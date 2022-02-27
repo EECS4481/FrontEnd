@@ -9,7 +9,6 @@ function Home() {
   const navigate = useNavigate();
   const [isStartingChat, setIsStartingChat] = useState(false);
   const [isProviderAvailable, setIsProviderAvailable] = useState(true);
-
   const { data: clientData } = useQuery("getClientId", getClientId, {
     enabled: false,
   });
@@ -79,6 +78,7 @@ function Home() {
             <Alert className="mt-3" variant="danger">
               No Provider available. Please try again later.
             </Alert>
+
           )}
         </Col>
       </Row>

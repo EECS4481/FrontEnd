@@ -1,7 +1,7 @@
 import axios from "axios";
 
+
 export const getClientId = async () => {
-  console.log("here");
   const { data } = await axios.get(`http://localhost:4000/api/getClientId`);
   return data;
 };
@@ -20,6 +20,12 @@ export const getConversationHistory = async (user1Id, user2Id) => {
   );
   return data;
 };
+
+
+export const checkProviderId = async (clientId) => {
+  const {data} = await axios.get(`http://localhost:4000/api/checkProvider/${clientId}`);
+  return data;
+}
 
 export const getProviderIdClientIdData = async (clientId) => {
   const { data } = await axios.get(

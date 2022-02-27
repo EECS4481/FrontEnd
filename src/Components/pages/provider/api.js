@@ -30,6 +30,18 @@ export const setProviderReady = async (providerId) => {
   return data;
 };
 
+
+export const transferCustomer = async (clientId, providerId) => {
+  const {data} = await axios.get(`http://localhost:4000/api/transferClient/${clientId}/${providerId}`);
+  return data;
+}
+
+export const getReadyProviders = async () => {
+  const {data} = await axios.get(`http://localhost:4000/api/readyProviders`);
+  return data;
+}
+
+
 export const logout = async (providerId) => {
   const { data } = await axios.get(
     `http://localhost:4000/api/logout/${providerId}`
