@@ -10,7 +10,7 @@ https://user-images.githubusercontent.com/26203082/155747149-a0397563-6c2e-4eb4-
 
 ### Provider transfers a Client to another online Provider:
 
-[Screen Recording 2022-02-26 at 10.01.26 PM.zip](https://github.com/EECS4481/FrontEnd/files/8147898/Screen.Recording.2022-02-26.at.10.01.26.PM.zip)
+https://user-images.githubusercontent.com/26203082/155866552-2e30dd53-5adb-434e-9a3c-3cc9b7327f0c.mp4
 
 
 ## Available Scripts
