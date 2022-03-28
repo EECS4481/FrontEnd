@@ -25,11 +25,17 @@ export const getConversationHistory = async (user1Id, user2Id) => {
 export const checkProviderId = async (clientId) => {
   const {data} = await axios.get(`http://localhost:4000/api/checkProvider/${clientId}`);
   return data;
-}
+};
 
 export const getProviderIdClientIdData = async (clientId) => {
   const { data } = await axios.get(
     `http://localhost:4000/api/startChat/${clientId}`
   );
   return data;
+};
+
+export const sendFile= async (form) => {
+  const data= await axios.post('http://localhost:4000/api/upload', form, {headers: {
+    'Content-Type': 'multipart/form-data'
+  }})
 };

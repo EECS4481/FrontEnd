@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
-    Container, Row, Col, Card, InputGroup, FormControl, Button, Table,
+    Container, Row, Col, Card, InputGroup, FormControl, Button, Table, Form,
 } from "react-bootstrap";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {
@@ -8,6 +8,7 @@ import {
     getClientId,
     getConversationHistory,
     getProviderIdClientIdData,
+    sendFile,
 } from "../api";
 import {Link} from "react-router-dom";
 
@@ -51,7 +52,17 @@ function Chat() {
         }
     );
 
-
+    //file upload
+    const [file, setFile]= useState("");
+    const onFile = e =>{
+        setFile(e.target.files[0]);
+    }
+    const handleUpload= e =>{
+        e.preventDefault();
+        const formData= new FormData();
+        formData.append('file',file)
+        sendFile(formData);
+    }
 
 
     return (
@@ -128,6 +139,14 @@ function Chat() {
                                     Send
                                 </Button>
                             </InputGroup>
+
+                            <Form onSubmit={handleUpload}>
+                                <Form.Group controlId="formFile" className="mb-3">
+                                    <Form.Label>Upload File</Form.Label>
+                                    <Form.Control type="file" name="file" onChange={onFile}/>
+                                </Form.Group>
+                                <Button type="submit">Upload</Button>
+                            </Form>
                         </Card.Body>
                     </Card>
                 </Col>
