@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+// import { useMutation, useQuery, useQueryClient } from "react-query";
 
 function FileUpload() {
   const [file, setFile] = useState(null);
@@ -31,9 +31,8 @@ function FileUpload() {
           variant="primary"
           size="sm"
           id="submit-button"
-          onClick={() => {
-            console.log("file is", file);
-          }}
+          type="button"
+          //   onClick={}
         >
           Upload
         </Button>
