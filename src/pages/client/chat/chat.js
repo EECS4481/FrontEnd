@@ -125,13 +125,27 @@ function Chat() {
                   Send
                 </Button>
               </InputGroup>
-              <Form.Group controlId="formFile" className="my-3">
+              <Form.Group controlId="formFile" className="my-3 d-flex flex-row">
                 <Form.Control
                   aria-describedby="File upload"
                   aria-label="Upload a file"
                   size="sm"
                   type="file"
                 />
+                <Button
+                  variant="primary"
+                  size="sm"
+                  id="submit-button"
+                  onClick={() => {
+                    // chatDataMutation.mutate({
+                    //   sender: clientId?.client_id,
+                    //   receiver: providerId,
+                    //   content: messageContent,
+                    // });
+                  }}
+                >
+                  Upload
+                </Button>
               </Form.Group>
             </Card.Body>
           </Card>
