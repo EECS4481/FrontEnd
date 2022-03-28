@@ -14,7 +14,7 @@ export const addConversation = async (sampleData) => {
 };
 
 export const getConversationHistory = async (user1Id, user2Id) => {
-  console.log("IN API", user1Id, user2Id);
+  // console.log("IN API", user1Id, user2Id);
   const { data } = await axios.get(
     `http://localhost:4000/api/getConversationHistory/${user1Id}/${user2Id}`
   );

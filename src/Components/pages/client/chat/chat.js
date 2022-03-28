@@ -8,6 +8,7 @@ import {
   FormControl,
   Button,
   Table,
+  Form,
 } from "react-bootstrap";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
@@ -37,11 +38,11 @@ function Chat() {
 
   useEffect(() => {
     checkProviderId(clientId.client_id).then((data) => {
-      console.log(data);
+      // console.log(data);
       setProviderId(data.provider_id);
     });
   });
-  console.log(providerId);
+  // console.log(providerId);
   // updates every minute
   const { data: chatData } = useQuery(
     "getConversationHistory",
@@ -70,15 +71,6 @@ function Chat() {
       </Row>
       <Row className="mb-5">
         <Col md={8}>
-          {/* if a client leaves the chat, then they must be disconnected from the provider in the backend */}
-          {/* <Button
-            as={Link}
-            to={`/client/home/${clientId.client_id}`}
-            variant="primary"
-            className="mb-4"
-          >
-            Leave chat
-          </Button> */}
           <Card>
             <Card.Body>
               <Card.Title>Your chat with {providerId}</Card.Title>
@@ -133,6 +125,14 @@ function Chat() {
                   Send
                 </Button>
               </InputGroup>
+              <Form.Group controlId="formFile" className="my-3">
+                <Form.Control
+                  aria-describedby="File upload"
+                  aria-label="Upload a file"
+                  size="sm"
+                  type="file"
+                />
+              </Form.Group>
             </Card.Body>
           </Card>
         </Col>
