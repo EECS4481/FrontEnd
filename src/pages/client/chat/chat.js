@@ -126,7 +126,10 @@ function Chat() {
                   Send
                 </Button>
               </InputGroup>
-              <FileInput />
+              <FileInput
+                providerId={providerId}
+                clientId={clientId?.client_id}
+              />
             </Card.Body>
           </Card>
         </Col>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { sendFile } from "../pages/client/api";
 
-function FileUpload() {
+function FileUpload({ providerId, clientId }) {
   const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
 
   //file upload
@@ -16,6 +16,8 @@ function FileUpload() {
     if (file?.size <= DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("receiver", providerId);
+      formData.append("sender", clientId);
       sendFile(formData);
     } else {
       setUploadError(true);
