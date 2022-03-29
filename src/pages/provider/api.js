@@ -66,3 +66,17 @@ export const provideChatCheck = async (providerId) => {
   );
   return data;
 };
+
+export const downloadFile = async (fileName) => {
+  // console.log(`http://localhost:4000/api/download/${fileName}`);
+  const { data } = await axios.get(
+    `http://localhost:4000/api/download/${fileName}`,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  console.log("data", data);
+  return data;
+};

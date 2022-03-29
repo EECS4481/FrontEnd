@@ -7,18 +7,22 @@ function FileUpload({ providerId, clientId }) {
 
   //file upload
   const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState(null);
   const [uploadError, setUploadError] = useState(false);
   const onFile = (e) => {
     setFile(e.target.files[0]);
   };
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     e.preventDefault();
     if (file?.size <= DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
       const formData = new FormData();
       formData.append("file", file);
+      console.log(file);
       formData.append("receiver", providerId);
       formData.append("sender", clientId);
-      sendFile(formData);
+      const fileName = await sendFile(formData);
+      setFileName(fileName);
+      console.log("filename", fileName);
     } else {
       setUploadError(true);
     }
@@ -38,8 +42,11 @@ function FileUpload({ providerId, clientId }) {
           Upload
         </Button>
       </Form.Group>
+
       {uploadError && <span>File size is too big</span>}
-      {/* {file && <span>File size: {convertBytesToKB(file.size)} kb</span>} */}
+      {/* {file && !uploadError && (
+        <span>Send the uploaded file name to the Provider: {fileName}</span>
+      )} */}
     </Form>
   );
 }
