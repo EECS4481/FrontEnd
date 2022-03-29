@@ -1,10 +1,12 @@
 import axios from "axios";
 
 export const getProviderId = async (email, password) => {
-  const { data } = await axios.get(
-    `http://localhost:4000/api/login/${email}/${password}`
+  const response = await axios.get(
+    `http://localhost:4000/api/login/${email}/${password}`,
+    { withCredentials: true }
   );
-  return data;
+  console.log(response);
+  return response.data;
 };
 
 export const addConversation = async (sampleData) => {
@@ -24,23 +26,25 @@ export const getConversationHistory = async (user1Id, user2Id) => {
 };
 
 export const setProviderReady = async (providerId) => {
+  const res = await axios.get(
+    `http://localhost:4000/api/providerReady/${providerId}`,
+    { withCredentials: true }
+  );
+  console.log("req", res.data);
+  return res.data;
+};
+
+export const transferCustomer = async (clientId, providerId) => {
   const { data } = await axios.get(
-    `http://localhost:4000/api/providerReady/${providerId}`
+    `http://localhost:4000/api/transferClient/${clientId}/${providerId}`
   );
   return data;
 };
 
-
-export const transferCustomer = async (clientId, providerId) => {
-  const {data} = await axios.get(`http://localhost:4000/api/transferClient/${clientId}/${providerId}`);
-  return data;
-}
-
 export const getReadyProviders = async () => {
-  const {data} = await axios.get(`http://localhost:4000/api/readyProviders`);
+  const { data } = await axios.get(`http://localhost:4000/api/readyProviders`);
   return data;
-}
-
+};
 
 export const logout = async (providerId) => {
   const { data } = await axios.get(
