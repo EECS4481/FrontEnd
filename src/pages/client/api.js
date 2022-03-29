@@ -34,3 +34,13 @@ export const getProviderIdClientIdData = async (clientId) => {
   );
   return data;
 };
+
+export const sendFile = async (form) => {
+  const { data } = await axios.post("http://localhost:4000/api/upload", form, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  console.log("data", data);
+  return data;
+};

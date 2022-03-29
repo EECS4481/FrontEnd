@@ -1,44 +1,44 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-// import { useMutation, useQuery, useQueryClient } from "react-query";
+import { sendFile } from "../pages/client/api";
 
 function FileUpload() {
-  const [file, setFile] = useState(null);
-  const KILO_BYTES_PER_BYTE = 1000;
   const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
-  const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 
+  //file upload
+  const [file, setFile] = useState(null);
+  const [uploadError, setUploadError] = useState(false);
+  const onFile = (e) => {
+    setFile(e.target.files[0]);
+  };
   const handleFileUpload = (e) => {
-    const { files } = e.target;
-    const uploadedFile = files[0];
-    console.log("uploadedFile", uploadedFile);
-    if (uploadedFile?.size <= DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
-      setFile(uploadedFile);
+    e.preventDefault();
+    if (file?.size <= DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
+      const formData = new FormData();
+      formData.append("file", file);
+      sendFile(formData);
+    } else {
+      setUploadError(true);
     }
   };
 
   return (
-    <>
+    <Form onSubmit={handleFileUpload}>
       <Form.Group controlId="formFile" className="my-3 d-flex flex-row">
         <Form.Control
           aria-describedby="File upload"
           aria-label="Upload a file"
           size="sm"
           type="file"
-          onChange={handleFileUpload}
+          onChange={onFile}
         />
-        <Button
-          variant="primary"
-          size="sm"
-          id="submit-button"
-          type="button"
-          //   onClick={}
-        >
+        <Button variant="primary" size="sm" id="submit-button" type="submit">
           Upload
         </Button>
       </Form.Group>
-      {file && <span>File size: {convertBytesToKB(file.size)} kb</span>}
-    </>
+      {uploadError && <span>File size is too big</span>}
+      {/* {file && <span>File size: {convertBytesToKB(file.size)} kb</span>} */}
+    </Form>
   );
 }
 
