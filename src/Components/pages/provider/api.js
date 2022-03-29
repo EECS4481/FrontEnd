@@ -12,7 +12,8 @@ export const getProviderId = async (email, password) => {
 export const addConversation = async (sampleData) => {
   const { data } = await axios.post(
     `http://localhost:4000/api/addConversation`,
-    sampleData
+    sampleData,
+    { withCredentials: true }
   );
   console.log("data", data);
   return data;
@@ -20,7 +21,8 @@ export const addConversation = async (sampleData) => {
 
 export const getConversationHistory = async (user1Id, user2Id) => {
   const { data } = await axios.get(
-    `http://localhost:4000/api/getConversationHistory/${user1Id}/${user2Id}`
+    `http://localhost:4000/api/getConversationHistory/${user1Id}/${user2Id}`,
+    { withCredentials: true }
   );
   return data;
 };
@@ -36,26 +38,31 @@ export const setProviderReady = async (providerId) => {
 
 export const transferCustomer = async (clientId, providerId) => {
   const { data } = await axios.get(
-    `http://localhost:4000/api/transferClient/${clientId}/${providerId}`
+    `http://localhost:4000/api/transferClient/${clientId}/${providerId}`,
+    { withCredentials: true }
   );
   return data;
 };
 
 export const getReadyProviders = async () => {
-  const { data } = await axios.get(`http://localhost:4000/api/readyProviders`);
+  const { data } = await axios.get(`http://localhost:4000/api/readyProviders`, {
+    withCredentials: true,
+  });
   return data;
 };
 
 export const logout = async (providerId) => {
   const { data } = await axios.get(
-    `http://localhost:4000/api/logout/${providerId}`
+    `http://localhost:4000/api/logout/${providerId}`,
+    { withCredentials: true }
   );
   return data;
 };
 
 export const provideChatCheck = async (providerId) => {
   const { data } = await axios.get(
-    `http://localhost:4000/api/provideChatCheck/${providerId}/client`
+    `http://localhost:4000/api/provideChatCheck/${providerId}/client`,
+    { withCredentials: true }
   );
   return data;
 };
