@@ -17,9 +17,9 @@ import {
   getClientId,
   getConversationHistory,
   getProviderIdClientIdData,
-  sendFile,
 } from "../api";
 import { Link } from "react-router-dom";
+import FileInput from "../../../components/file-upload";
 
 function Chat() {
   const queryClient = useQueryClient();
@@ -39,14 +39,18 @@ function Chat() {
 
   useEffect(() => {
     checkProviderId(clientId.client_id).then((data) => {
-      console.log(data);
+      // console.log(data);
       setProviderId(data.provider_id);
     });
   });
-  console.log(providerId);
+  // console.log(providerId);
   // updates every minute
-  const { data: chatData } = useQuery("getConversationHistory", () =>
-    getConversationHistory(clientId.client_id, providerId)
+  const { data: chatData } = useQuery(
+    "getConversationHistory",
+    () => getConversationHistory(clientId.client_id, providerId),
+    {
+      enabled: !!providerId,
+    }
   );
 
   // each time a user sends a message, the conversation history updates
@@ -58,21 +62,6 @@ function Chat() {
       },
     }
   );
-
-  //file upload
-  const [file, setFile] = useState("");
-  const onFile = (e) => {
-    setFile(e.target.files[0]);
-    
-  };
-  const handleUpload = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append('receiver',providerId);
-    formData.append('sender',clientId.client_id);
-    sendFile(formData);
-  };
 
   return (
     <Container>
@@ -129,7 +118,7 @@ function Chat() {
                   onClick={() => {
                     chatDataMutation.mutate({
                       sender: clientId?.client_id,
-                      receiver: providerIdClientIdData?.provider_id,
+                      receiver: providerId,
                       content: messageContent,
                     });
                   }}
@@ -137,14 +126,10 @@ function Chat() {
                   Send
                 </Button>
               </InputGroup>
-
-              <Form onSubmit={handleUpload}>
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>Upload File</Form.Label>
-                  <Form.Control type="file" name="file" onChange={onFile} />
-                </Form.Group>
-                <Button type="submit">Upload</Button>
-              </Form>
+              <FileInput
+                providerId={providerId}
+                clientId={clientId?.client_id}
+              />
             </Card.Body>
           </Card>
         </Col>
