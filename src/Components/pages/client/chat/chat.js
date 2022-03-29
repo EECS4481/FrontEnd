@@ -63,11 +63,14 @@ function Chat() {
   const [file, setFile] = useState("");
   const onFile = (e) => {
     setFile(e.target.files[0]);
+    
   };
   const handleUpload = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
+    formData.append('receiver',providerId);
+    formData.append('sender',clientId.client_id);
     sendFile(formData);
   };
 
