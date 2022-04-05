@@ -1,5 +1,9 @@
 ## Demos
 
+### File upload between Provider and Client:
+
+https://user-images.githubusercontent.com/26203082/160524447-60128891-304d-44ce-ac90-cfd88d1a443b.mov
+
 ### Chat between Provider and Client:
 
 https://user-images.githubusercontent.com/26203082/155747120-0237a6f7-5bbd-4719-b443-a36315e5d59f.mov
